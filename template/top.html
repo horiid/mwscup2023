@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}トップ - {{ super() }}{% endblock %}
+{% block content %}
+<div class="container">
+  <p>INS64++の操作は簡単です。さっそくはじめましょう。</p>
+  <ul>
+    <li>ダウンロードボタンを押下し分類ごとのCSVをダウンロードできます</li>
+    <li>詳細リンクを押下することでCSVデータのサンプルを確認することができます</li>
+  </ul>
+</div>
+<div class="container">
+  <table border="0.3" class="table">
+    <tr class="table-secondary">
+      <th scope="col">分類</th> <th scope="col">ダウンロード</th> <th scope="col">詳細</th>
+    </tr>
+    {% for key, value in cat_url.items() %}
+    <tr>
+      <td>{{ key }}</td>
+      <td>
+        <form action="/download", method="get">
+            <button type="submit" class="btn btn-outline-secondary" name="fname_ext" value="{{ value }},csv">CSV</button>
+            <button type="submit" class="btn btn-outline-secondary" name="fname_ext" value="{{ value }},json">JSON</button>
+        </form>
+      </td>
+      <td>
+        <a href="{{ url_for('detail') }}?file_name={{ value }}" target="_blank">詳細</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}
