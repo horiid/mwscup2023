@@ -1,17 +1,10 @@
 {
-    "services": {
-        "Amazon": {
-            "service_names": [
-                "Amazon",
-                "アマゾン"
-            ],
-            "enabled": "yes"
-        },
-        "LINE": {
-            "service_names": [
-                "LINE"
-            ],
-            "enabled": "no"
-        }
+  "services": {
+    "Amazon": {
+      "service_names": ["Amazon", "アマゾン"]
+    },
+    "LINE": {
+      "service_names": ["LINE"]
     }
+  }
 }

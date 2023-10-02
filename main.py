@@ -4,7 +4,7 @@ import os
 
 import feedparser
 import requests
-# import sys
+import sys
 import csv
 import json
 from flask import Flask, render_template, request, send_file
@@ -17,11 +17,14 @@ load_dotenv()  # 環境変数の読み込み
 scheduler = APScheduler()#定期実行のために必要なモジュール
 app = Flask(__name__, template_folder='template/')
 
-services = ["amazon", "ドコモ", "楽天", "サイボウズ", "クレディセゾン", "NHK"]
+services = []
+startup = True
 # keywords = ["情報流出", "自動音声", "注意", "情報漏えい"]
 URL = "https://scan.netsecurity.ne.jp/rss/index.rdf"
 FILE_NAME = "search_words.csv"
 DIFF_JST_FROM_UTC = 9
+JSON_FILENAME = "services.json"
+REGISTER_CSV_FILENAME = "register.csv"
 
 
 @scheduler.task('interval',id="get_rss", hours=6)
@@ -50,7 +53,7 @@ def read_csv(file_name):
         cr = csv.reader(f)
         for row in cr:
             words_list.append(row[0])
-    
+
     return words_list
 
 def send_line_notification(msg, link):
@@ -71,12 +74,29 @@ scheduler.start()
 
 
 @app.route('/')
+
 @app.route('/top')
 def top():
-    category = ['社会​', '気象・災害​', '科学・文化​', '政治​', 'ビジネス​', 'スポーツ​', '暮らし​', '医療・健康​']
-    csv_name = ['1.csv', '2.csv', '3.csv', '4.csv', '5.csv', '6.csv', '7.csv', '8.csv']
-    cat_url = dict(zip(category, csv_name))
-    return render_template('top.html', cat_url=cat_url)
+    """トップページを表示する
+        top.htmlにservices及びservices_jsonを受け渡す
+
+    Returns:
+        render_template
+    """
+    global startup
+    global services
+    if startup == True:
+        startup = False
+        services = read_csv(REGISTER_CSV_FILENAME)
+
+    with open(JSON_FILENAME, encoding="utf-8") as json_file:
+        services_json_all = json.load(json_file)
+
+    services_json = []
+    for key in services_json_all["services"].keys():
+        services_json.append(key)
+
+    return render_template('top.html', services=services, services_json=services_json)
 
 @app.route("/download")
 def download():

@@ -11,23 +11,26 @@
 <div class="container">
   <table border="0.3" class="table">
     <tr class="table-secondary">
-      <th scope="col">分類</th> <th scope="col">ダウンロード</th> <th scope="col">詳細</th>
+      <th scope="col">サービス</th> <th scope="col">登録</th> <th scope="col">削除</th>
     </tr>
-    {% for key, value in cat_url.items() %}
+    {% for default_service in services_json %}
     <tr>
-      <td>{{ key }}</td>
-      <td>
-        <form action="/download", method="get">
-            <button type="submit" class="btn btn-outline-secondary" name="fname_ext" value="{{ value }},csv">CSV</button>
-            <button type="submit" class="btn btn-outline-secondary" name="fname_ext" value="{{ value }},json">JSON</button>
+      <td>{{ default_service }}</td>
+        <form action="/register", method="post">
+          {% if default_service in services %}
+          <td> <input type="radio" name="{{default_service}}" value="register" checked="checked"> </td>
+          <td> <input type="radio" name="{{default_service}}" value="delete"> </td>
+          </form>
+          {% else %}
+          <td> <input type="radio" name={{default_service}} value="register"> </td>
+          <td> <input type="radio" name={{default_service}} value="delete"  checked="checked"> </td>
+          {% endif %}
         </form>
-      </td>
-      <td>
-        <a href="{{ url_for('detail') }}?file_name={{ value }}" target="_blank">詳細</a>
       </td>
     </tr>
     {% endfor %}
   </table>
+  <input type="submit" value="登録">
 </div>
 
 {% endblock %}
