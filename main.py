@@ -32,19 +32,24 @@ def get_rss():
     feed = feedparser.parse(URL)
     links = []
     keywords = read_csv(FILE_NAME)
+    with open(JSON_FILENAME, encoding="utf-8") as json_file:
+        services_json_all = json.load(json_file)
     # 現在時刻取得
     now = datetime.utcnow() + timedelta(hours=DIFF_JST_FROM_UTC)
+    
     for entry in feed.entries:
         news_date = datetime.fromisoformat(entry.updated[:-1])  # "Z"を除去してISO 8601形式の文字列をDatetimeに変換
         # 記事の時刻と現在時刻を比較
         if now - timedelta(hours=6) < news_date:
-            for service in services:
-                for keyword in keywords:
-                    if service in entry.title and keyword in entry.title:
-                        if entry.link not in links:
-                            send_line_notification(msg=entry.title, link=entry.link)
-                            print("%s\n%s\n%s\n\n" % (entry.title, entry.updated, entry.link))
-                            links.append(entry.link)
+            for default_service in services:
+                for service in services_json_all["services"][default_service]["service_names"]:
+                    for keyword in keywords:
+                        if service in entry.title and keyword in entry.title:
+                            if entry.link not in links:
+                                send_line_notification(msg=entry.title, link=entry.link)
+                                print("%s\n%s\n%s\n\n" % (entry.title, entry.updated, entry.link))
+                                links.append(entry.link)
+                                
 
 def read_csv(file_name):
     words_list = []
