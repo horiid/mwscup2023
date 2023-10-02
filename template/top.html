@@ -4,13 +4,12 @@
 <div class="container">
   <p>INS64++の操作は簡単です。さっそくはじめましょう。</p>
   <ul>
-    <li>ダウンロードボタンを押下し分類ごとのCSVをダウンロードできます</li>
-    <li>詳細リンクを押下することでCSVデータのサンプルを確認することができます</li>
+    <li>こちらで登録したいサービスを選択できます</li>
   </ul>
 </div>
 <div class="container">
   <table border="0.3" class="table">
-    <tr class="table-secondary">
+    <tr class="table-success">
       <th scope="col">サービス</th> <th scope="col">登録</th> <th scope="col">削除</th>
     </tr>
     {% for default_service in services_json %}
@@ -18,19 +17,19 @@
       <td>{{ default_service }}</td>
         <form action="/register", method="post">
           {% if default_service in services %}
-          <td> <input type="radio" name="{{default_service}}" value="register" checked="checked"> </td>
-          <td> <input type="radio" name="{{default_service}}" value="delete"> </td>
+          <td> <input type="radio" class="form-check-input" name="{{default_service}}" value="register" checked="checked"> </td>
+          <td> <input type="radio" class="form-check-input" name="{{default_service}}" value="delete"> </td>
           </form>
           {% else %}
-          <td> <input type="radio" name={{default_service}} value="register"> </td>
-          <td> <input type="radio" name={{default_service}} value="delete"  checked="checked"> </td>
+          <td> <input type="radio" class="form-check-input" name={{default_service}} value="register"> </td>
+          <td> <input type="radio" class="form-check-input" name={{default_service}} value="delete"  checked="checked"> </td>
           {% endif %}
         </form>
       </td>
     </tr>
     {% endfor %}
   </table>
-  <input type="submit" value="登録">
+  <input type="submit" class="btn btn-outline-primary"　value="登録">
 </div>
 
 {% endblock %}
