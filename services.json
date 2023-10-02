@@ -5,6 +5,10 @@
     },
     "LINE": {
       "service_names": ["LINE"]
-    }
+    },
+      "楽天": {
+        "service_names": ["rakuten"]
+      }
+    
   }
 }

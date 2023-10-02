@@ -2,13 +2,12 @@
 {% block title %}トップ - {{ super() }}{% endblock %}
 {% block content %}
 <div class="container">
-  <p>INS64++の操作は簡単です。さっそくはじめましょう。</p>
   <ul>
-    <li>こちらで登録したいサービスを選択できます</li>
+    <p>こちらで登録したいサービスを選択できます</p>
   </ul>
 </div>
 <div class="container">
-  <table border="0.3" class="table">
+  <table border="0.3" class="table table-hover">
     <tr class="table-success">
       <th scope="col">サービス</th> <th scope="col">登録</th> <th scope="col">削除</th>
     </tr>
@@ -29,7 +28,11 @@
     </tr>
     {% endfor %}
   </table>
-  <input type="submit" class="btn btn-outline-primary"　value="登録">
+  <div class="d-flex justify-content-end">
+    <div class="p-2 bd-highlight">
+      <input type="submit" class="btn btn-outline-primary"　value="登録">
+    </div>
+  </div>
 </div>
 
 {% endblock %}
