@@ -7,7 +7,7 @@ import requests
 import sys
 import csv
 import json
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect, url_for
 from flask_apscheduler import APScheduler #定期実行のために必要なモジュール（flask用）
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
@@ -117,6 +117,29 @@ def download():
         with open(file=json_path, mode='w', encoding="utf-8") as f:
             json.dump(d_list, f, ensure_ascii=False)
         return send_file(json_path, as_attachment=True, download_name=json_name, mimetype='application/json')
+
+@app.route("/register", methods=["POST"])
+def register_services():
+    # receive user input
+    services_json = dict()
+    user_input = dict()
+    with open("services.json", "r") as f:
+        services_json = json.load(f)
+    
+    for key in services_json["services"].keys():
+        print(key)
+        user_input[key] = request.form[key]
+    print(user_input)
+    
+    # assgin CSV data to global var: services
+    register_csv = read_csv("register.csv")
+    
+    global services
+    print("before: %s\n"%services)
+    services = register_csv
+    print("after: %s\n"%services)
+    
+    return redirect(url_for('top'))
 
 def flask_read_csv(file_name):
     with open('./data/' + file_name, mode='r', encoding="utf-8") as f:
