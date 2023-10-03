@@ -8,7 +8,13 @@
     },
       "楽天": {
         "service_names": ["rakuten"]
-      }
+      },
+    "ドコモ": {
+       "service_names": ["ドコモ"]
+    },
+    "iPhone": {
+      "service_names": ["iPhone"]
+    }
     
   }
 }
