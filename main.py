@@ -48,9 +48,6 @@ def get_rss():
                                 print("%s\n%s\n%s\n\n" % (entry.title, entry.updated, entry.link))
                                 links.append(entry.link)
 
-scheduler.init_app(app)
-scheduler.start()
-
 
 @app.route('/')
 @app.route('/top')
@@ -82,7 +79,6 @@ def register_services():
     f = open(REGISTER_CSV_FILENAME, "w")
     writer = csv.writer(f)
     global services
-    print("before: %s\n"%services)
     services = list()
     for service_name, status in request.form.items():
         if status == 'register':
@@ -93,5 +89,7 @@ def register_services():
 
 
 if __name__ == "__main__":
+    scheduler.init_app(app)
+    scheduler.start()
     app.debug = True
     app.run(host= "localhost")
