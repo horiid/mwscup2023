@@ -19,10 +19,10 @@ app = Flask(__name__, template_folder='template/')
 services = []
 startup = True
 URL = "https://scan.netsecurity.ne.jp/rss/index.rdf"
-FILE_NAME = "search_words.csv"
+FILE_NAME = "data/search_words.csv"
 DIFF_JST_FROM_UTC = 9
-JSON_FILENAME = "services.json"
-REGISTER_CSV_FILENAME = "register.csv"
+JSON_FILENAME = "data/services.json"
+REGISTER_CSV_FILENAME = "data/register.csv"
 
 
 @scheduler.task('interval',id="get_rss", hours=6)
@@ -42,7 +42,7 @@ def get_rss():
         services_json_all = json.load(json_file)
     # 現在時刻取得
     now = datetime.utcnow() + timedelta(hours=DIFF_JST_FROM_UTC)
-    
+
     for entry in feed.entries:
         news_date = datetime.fromisoformat(entry.updated[:-1])  # "Z"を除去してISO 8601形式の文字列をDatetimeに変換
         # 記事の時刻と現在時刻を比較
@@ -83,16 +83,16 @@ def top():
 
 
 @app.route("/register", methods=["POST"])
-def register_services():  
+def register_services():
     """通知するサービスを登録するフォーム
     register.csvの更新・グローバル変数を変更後トップ画面にリダイレクトする
-    
+
     Params:
         None
-    
+
     Returns:
         redirect(url_for("top"))
-    """  
+    """
     f = open(REGISTER_CSV_FILENAME, "w")
     writer = csv.writer(f)
     global services

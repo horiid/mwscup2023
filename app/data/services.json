@@ -6,15 +6,14 @@
     "LINE": {
       "service_names": ["LINE"]
     },
-      "楽天": {
-        "service_names": ["rakuten"]
-      },
+    "楽天": {
+      "service_names": ["楽天", "rakuten"]
+    },
     "ドコモ": {
-       "service_names": ["ドコモ"]
+      "service_names": ["ドコモ"]
     },
     "iPhone": {
       "service_names": ["iPhone"]
     }
-    
   }
 }
