@@ -27,6 +27,14 @@ REGISTER_CSV_FILENAME = "register.csv"
 
 @scheduler.task('interval',id="get_rss", hours=6)
 def get_rss():
+    """RSSフィードから記事を取得し、条件にマッチしたものをLINEで通知する
+
+    Params:
+        None
+
+    Returns:
+        None
+    """
     feed = feedparser.parse(URL)
     links = []
     keywords = read_csv(FILE_NAME)
@@ -75,7 +83,16 @@ def top():
 
 
 @app.route("/register", methods=["POST"])
-def register_services():    
+def register_services():  
+    """通知するサービスを登録するフォーム
+    register.csvの更新・グローバル変数を変更後トップ画面にリダイレクトする
+    
+    Params:
+        None
+    
+    Returns:
+        redirect(url_for("top"))
+    """  
     f = open(REGISTER_CSV_FILENAME, "w")
     writer = csv.writer(f)
     global services
@@ -91,5 +108,5 @@ def register_services():
 if __name__ == "__main__":
     scheduler.init_app(app)
     scheduler.start()
-    app.debug = True
+    app.debug = True # 最終的なmainブランチではdebugはFalseにする
     app.run(host= "localhost")
