@@ -20,28 +20,27 @@
         </svg>
       </th>
     </tr>
+    <form action="/register", method="post">
     {% for default_service in services_json %}
     <tr>
       <td>{{ default_service }}</td>
-        <form action="/register", method="post">
           {% if default_service in services %}
           <td> <input type="radio" class="form-check-input" name="{{default_service}}" value="register" checked="checked"> </td>
           <td> <input type="radio" class="form-check-input" name="{{default_service}}" value="delete"> </td>
-          </form>
           {% else %}
           <td> <input type="radio" class="form-check-input" name={{default_service}} value="register"> </td>
           <td> <input type="radio" class="form-check-input" name={{default_service}} value="delete"  checked="checked"> </td>
           {% endif %}
-        </form>
       </td>
     </tr>
     {% endfor %}
   </table>
-  <div class="d-flex justify-content-end"">
+  <div class="d-flex justify-content-end">
     <div class="p-2 bd-highlight">
-      <input type="submit" class="btn btn-outline-primary"　value="登録">
+      <input type="submit" class="btn btn-outline-primary" value="登録">
     </div>
   </div>
+</form>
 </div>
 
 {% endblock %}
