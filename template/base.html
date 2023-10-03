@@ -9,22 +9,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">  
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <title>{% block title %}Igachan's Fakelake{% endblock %}</title>
+    <title>{% block title %}Wide Angel{% endblock %}</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mt-3 mb-3">
-        <a class="navbar-brand ms-2" href="#">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"></path>
-                <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
-              </svg>
-            INS64++
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark m-2">
+        <a class="navbar-brand ms-2 fs-3" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-send-exclamation" viewBox="0 0 16 16">
+                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>
+            </svg>
+            Wide Angel
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse">
+        <!-- <div class="collapse navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ url_for('top') }}">ホーム</a>
@@ -36,7 +36,7 @@
                     <a class="nav-link" href="#">エクスポート</a>
                 </li> -->
             </ul>
-        </div>
+        </div> -->
     </nav>
     
     <main>
@@ -46,7 +46,7 @@
     
     <footer class="footer mt-auto py-3">
         <div class="container-sm">
-            <span class="text-muted mt-3">(C) 2023 INS64++</span>
+            <span class="text-muted mt-3">(C) 2023 Wide Angel</span>
         </div>
     </footer>
 
