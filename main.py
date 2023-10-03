@@ -120,25 +120,30 @@ def download():
 
 @app.route("/register", methods=["POST"])
 def register_services():
+
     # receive user input
     services_json = dict()
     user_input = dict()
     with open("services.json", "r") as f:
         services_json = json.load(f)
     
-    for key in services_json["services"].keys():
-        print(key)
-        user_input[key] = request.form[key]
-    print(user_input)
-    
-    # assgin CSV data to global var: services
-    register_csv = read_csv("register.csv")
-    
+    f = open("register.csv", "w")
+    writer = csv.writer(f)
     global services
     print("before: %s\n"%services)
-    services = register_csv
-    print("after: %s\n"%services)
+    services = list()
+    for service_name, status in request.form.items():
+        if status == 'register':
+            writer.writerow([service_name])
+            services.append(service_name)
+    f.close()
+
+    # output user input to register.csv
+
     
+    # assgin CSV data to global var: services
+    # register_csv = read_csv("register.csv")
+    print("after: %s\n"%services)
     return redirect(url_for('top'))
 
 def flask_read_csv(file_name):
