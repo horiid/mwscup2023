@@ -2,3 +2,4 @@ flask
 flask_apscheduler
 feedparser
 requests
+python-dotenv
