@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block title %}トップ - {{ super() }}{% endblock %}
 {% block content %}
+
+<div class="container">
+  <div class="card mb-4">
+    <div class="card-header">最後の記事取得日時（一度も取得されていない場合、サーバ立ち上げ時刻が表示されます）</div>
+    <div class="card-body">
+      <p>{{ last_exec }}</p>
+    </div>
+  </div>
+</div>
+
 <div class="container">
     <p class="fs-4">登録/削除したいサービスを選択してください</p>
 </div>
@@ -37,10 +47,19 @@
   </table>
   <div class="d-flex justify-content-end">
     <div class="p-2 bd-highlight">
-      <input type="submit" class="btn btn-outline-primary" value="登録">
+      <input type="submit" class="btn btn-outline-primary mb-5" value="登録">
     </div>
   </div>
 </form>
+</div>
+
+<div class="container mt-5">
+  <ul border="0.3" class="list-group">
+      <li class="list-group-item list-group-item-secondary">検索キーワード</li>
+    {% for keyword in keywords %}
+      <li class="list-group-item">{{ keyword }}</li>
+    {% endfor %}
+  </ul>
 </div>
 
 {% endblock %}

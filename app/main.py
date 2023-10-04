@@ -18,11 +18,14 @@ app = Flask(__name__, template_folder='template/')
 
 services = []
 startup = True
+
 URL = "https://scan.netsecurity.ne.jp/rss/index.rdf"
 FILE_NAME = "data/search_words.csv"
 DIFF_JST_FROM_UTC = 9
 JSON_FILENAME = "data/services.json"
 REGISTER_CSV_FILENAME = "data/register.csv"
+
+last_exec = (datetime.utcnow() + timedelta(hours=DIFF_JST_FROM_UTC)).strftime("%Y/%m/%d %H:%M:%S")
 
 
 @scheduler.task('interval',id="get_rss", hours=6)
@@ -42,6 +45,8 @@ def get_rss():
         services_json_all = json.load(json_file)
     # 現在時刻取得
     now = datetime.utcnow() + timedelta(hours=DIFF_JST_FROM_UTC)
+    global last_exec
+    last_exec = now.strftime("%Y/%m/%d %H:%M:%S")
 
     for entry in feed.entries:
         news_date = datetime.fromisoformat(entry.updated[:-1])  # "Z"を除去してISO 8601形式の文字列をDatetimeに変換
@@ -78,8 +83,17 @@ def top():
     services_json = []
     for key in services_json_all["services"].keys():
         services_json.append(key)
+    
+    keywords = list()
+    with open(FILE_NAME, "r") as f:
+        reader = csv.reader(f)
+        for row in reader:
+            keywords.append(row[0])
+    
+    global last_exec
+    print(last_exec)
 
-    return render_template('top.html', services=services, services_json=services_json)
+    return render_template('top.html', services=services, services_json=services_json, keywords=keywords, last_exec=last_exec)
 
 
 @app.route("/register", methods=["POST"])
@@ -108,5 +122,4 @@ def register_services():
 if __name__ == "__main__":
     scheduler.init_app(app)
     scheduler.start()
-    app.debug = True # 最終的なmainブランチではdebugはFalseにする
     app.run(host= "localhost")
