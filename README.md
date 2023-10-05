@@ -8,7 +8,7 @@
 ### ローカルでの立ち上げ
 - LINE Notify APIの利用準備
   - (オプション作業)通知先となるLINEグループを事前に作成します。後から通知先グループを指定することも可能です。
-  - [LINE Nortify公式サイト](https://notify-bot.line.me/ja/)よりアクセストークンを発行してください。
+  - [LINE Notify公式サイト](https://notify-bot.line.me/ja/)よりアクセストークンを発行してください。
 
 - ソースコードを取得します。  
   ```
@@ -39,7 +39,7 @@ sudo docker run -d -p 8000:5000 ins64pp
 
 ## 情報源について
 - データ収集サイト（情報源）
-  - ScanNetSecurity(https://scan.netsecurity.ne.jp/)
+  - ScanNetSecurity (https://scan.netsecurity.ne.jp/)
 - 情報源として選定した理由
   - 1998年創刊の日本初のサイバーセキュリティ専門誌を母体とする専門サイトであり情報の信憑性が高い為。
   - セキュリティニュースが「インシデント」や「情報漏えい」等のカテゴリに体系立てられており閲覧性が高い為。
